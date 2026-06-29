@@ -33,9 +33,32 @@
 | Level | 기준 |
 |-------|------|
 | **Critical** | 서비스 중단, 데이터 손실, 보안 취약점 |
-| **High** | 핵심 기능 불가, 다수 사용자 영향 |
+| **High** | 핵심 기능 불가, UX QA 실패, SaaS 품질 미달 (아래 High Priority Bug) |
 | **Medium** | 기능 제한, 우회 가능, 소수 사용자 영향 |
-| **Low** | UI 깨짐, 사소한 불편, 미관 문제 |
+| **Low** | 사소한 미관, 낮은 영향 |
+
+### High Priority Bug (즉시 수정)
+
+User Experience QA 실패 항목은 모두 **High**로 분류한다.
+
+- HTML/JSON/Markdown/Debug/Stack Trace/Placeholder/TODO/개발자 용어 노출
+- 테스트 데이터, 임시 버튼 노출
+- 버튼·입력 비정상, 화면·레이아웃 깨짐, 글자 잘림
+- 여백·색상 불일치, 모바일 비정상
+- Loading/Empty/Error 화면 부자연스러움
+- "돈 내고 쓸 SaaS" 수준 미달 (디자인 불일치, 낮은 완성도)
+
+### User Experience QA 체크리스트
+
+Cursor가 매 Commit마다 실행·화면 확인했는지 검증한다.
+
+- [ ] HTML 태그 노출 없음
+- [ ] JSON/Python 객체/Markdown 원문 노출 없음
+- [ ] Debug·Stack Trace 없음
+- [ ] Placeholder·TODO·개발자 용어 없음
+- [ ] 버튼·입력 정상 동작
+- [ ] 레이아웃·모바일 정상
+- [ ] Loading/Empty/Error UX 자연스러움
 
 ---
 

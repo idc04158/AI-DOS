@@ -22,50 +22,40 @@ v<MAJOR>.<MINOR>.<PATCH>
 
 ## 버전 히스토리
 
-### v1.0.5 (2026-06-29)
+### v1.1.0 (2026-06-29) — 현재
 
-연속 자율 작업 정책 — 승인 질문 제거, 8단계 루프, 보고 형식 표준화.
+자율 개발 워크플로우 통합. 모든 SaaS 프로젝트 공통 운영체계.
 
-**변경 내용:**
+**핵심 변경:**
 
-- QA·UI/UX Sprint 중 사용자 승인 없이 연속 작업
-- 금지 질문 4종, 중단 조건 4가지 명시
-- Commit 후 보고 4항목만 (다음 작업 제안 금지)
-- README, WORKFLOW, DEVELOPMENT_RULES, ai-dos.mdc 업데이트
+- Feature → QA → UI/UX Sprint 자동 사이클
+- User Experience QA (실행·화면 검증) 필수
+- SaaS 품질 기준, High Priority Bug 정의
+- 자동 진행 (승인 질문 금지), 5항목 보고
+- 중단 조건: CTO Task, 아키텍처 변경, 외부 결정
 
-### v1.0.4 (2026-06-29)
+**마이그레이션 (v1.0.x → v1.1):**
 
-Cursor 자율 개발 워크플로우 및 UI/UX Sprint 도입.
+```bash
+cp AI-DOS/.cursor/rules/ai-dos.mdc my-project/.cursor/rules/
+cp -r AI-DOS/.ai my-project/
+# PROJECT_STATE.md에 Sprint Progress, High Priority Bugs 필드 추가
+# VISION.md 등 프로젝트 고유 문서는 유지
+```
 
-**변경 내용:**
+```powershell
+Copy-Item AI-DOS\.cursor\rules\ai-dos.mdc my-project\.cursor\rules\ -Force
+Copy-Item AI-DOS\.ai my-project\.ai -Recurse -Force
+```
 
-- Feature → QA (자동) → UI/UX (자동) → Release 전체 사이클
-- QA Sprint 우선순위 9단계, UI/UX Sprint 개선 항목 정의
-- 작업 종료 조건 6항목, 중단 질문 금지
-- README, WORKFLOW, DEVELOPMENT_RULES, ai-dos.mdc 업데이트
+### v1.0.x (2026-06-29)
 
-### v1.0.3 (2026-06-29)
+v1.0.0–v1.0.5 단계적 안정화. v1.1에서 통합.
 
-Feature/QA Sprint 모드 및 Cursor 자율 QA Sprint 워크플로우.
-
-**변경 내용:**
-
-- Feature Sprint / QA Sprint 개발 모드 도입
-- QA Sprint: Cursor가 프로젝트를 분석하고 우선순위 기반으로 자율 수정
-- 이슈 우선순위 8단계, 문제당 Commit & Push 루프
-- 종료 조건 충족까지 자동 진행, CTO Task 병행 가능
-- README, WORKFLOW, DEVELOPMENT_RULES, ai-dos.mdc 업데이트
-
-### v1.0.2 (2026-06-29)
-
-CEO, ChatGPT(CTO), Cursor(Senior Engineer) 역할 및 반복 개발 프로세스 명확화.
-
-**변경 내용:**
-
-- 역할 정의: CEO(의사결정), CTO(Task·QA·리뷰), Engineer(구현·커밋·Push)
-- 개발 프로세스: 기능 요청 → Task → 구현 → 리뷰 → QA → UX → Release 반복
-- ChatGPT는 Task만 생성, Cursor는 구현·문서·커밋·Push 담당
-- README, WORKFLOW, DEVELOPMENT_RULES, ai-dos.mdc 업데이트
+- v1.0.0: 최초 안정 버전
+- v1.0.1: `.ai/prompts/` 경로 분리
+- v1.0.2–v1.0.3: 역할 정의, Feature/QA Sprint
+- v1.0.4–v1.0.5: UI/UX Sprint, 연속 자율 작업
 
 ### v1.0.1 (2026-06-29)
 

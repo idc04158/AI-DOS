@@ -35,6 +35,10 @@
 
 **Current Goal:** [이번 스프린트에서 반드시 달성할 목표 — 한 문장]
 
+**Sprint Progress:** [0-100]%
+
+**High Priority Bugs:** [개수]
+
 | Sprint Mode | Current Goal 예시 |
 |-------------|-------------------|
 | Feature Sprint | "이메일 로그인 기능 출시" |

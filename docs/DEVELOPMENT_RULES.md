@@ -173,12 +173,12 @@ Cursor, ChatGPT 등 AI 도구 사용 시 추가 규칙이다.
 
 ### Cursor (Engineer) 규칙
 
-- ChatGPT(CTO) 관리 아래 **자율적으로** 개발·QA·UI/UX를 수행한다
-- Feature Sprint: Task 구현 → 테스트 → Commit & Push → CTO 리뷰 사이클
-- QA·UI/UX Sprint: **8단계 자율 루프**, 사용자 승인 질문 없이 연속 작업
-- ChatGPT Task 수신 시 우선 처리 후 자율 루프 재개
-- Commit 후 **4항목만** 보고 (수정 내용, 해시, Push 여부, 잔여 High Priority 이슈)
-- 다음 작업 제안 금지 — **스스로 시작**
+- CTO 관리 아래 **자율적으로** Feature·QA·UI/UX Sprint 수행
+- Feature Sprint: 구현 → 테스트(실행·화면) → Commit → Push → CTO 리뷰
+- QA·UI/UX Sprint: 우선순위 기반 연속 작업, **승인 질문 금지**
+- **User Experience QA 필수** — 매 Commit마다 앱 실행·화면 확인
+- **SaaS 품질 기준** — "돈 내고 쓸 SaaS처럼 느끼는가?" 판단
+- Commit 후 **5항목만** 보고, 다음 작업 **스스로 시작**
 
 ### 공통
 
@@ -187,65 +187,37 @@ Cursor, ChatGPT 등 AI 도구 사용 시 추가 규칙이다.
 
 ---
 
-## 11. 개발 프로세스 원칙
+## 11. 개발 프로세스 (AI-DOS v1.1)
 
-### 전체 사이클
+상세 흐름은 [WORKFLOW.md](WORKFLOW.md)를 참고한다.
 
-```
-Feature Sprint → QA Sprint (자동) → UI/UX Sprint (자동) → Release
-```
+### 사이클
 
-### 스프린트 모드
+`Feature Sprint → QA Sprint (자동) → UI/UX Sprint (자동) → Release`
 
-| 모드 | 진입 | 기능 추가 | 주도 |
-|------|------|-----------|------|
-| Feature Sprint | CEO 기능 요청 | ✓ | ChatGPT Task → Cursor |
-| QA Sprint | 기능 구현 완료 후 자동 | ✗ | Cursor 자율 |
-| UI/UX Sprint | QA Sprint 종료 후 자동 | ✗ | Cursor 자율 |
+### QA Sprint 우선순위
 
-### Feature Sprint
+Runtime Crash → 기능 오류 → 예외 처리 → 데이터 무결성 → UX → UI → 성능 → 리팩토링 → 유지보수성
 
-```
-기능 요청 → ChatGPT Task → Cursor 구현 → 테스트 → Commit & Push
-→ ChatGPT 리뷰 → Cursor 수정 → ChatGPT QA → Cursor 수정
-→ ChatGPT UX/UI 리뷰 → Cursor 수정 → Release (ChatGPT 선언)
-```
+### User Experience QA (필수)
 
-### QA Sprint — Cursor 자율 규칙
+Cursor는 코드만 검사하지 않는다. **매 Commit마다** 앱을 실행하고 화면을 확인한다.
 
-ChatGPT(CTO)가 QA Sprint를 시작하면 **사용자 승인 없이** Cursor가 계속 작업한다.
+HTML/JSON/Debug/Placeholder/TODO/개발자 용어 노출, UI 깨짐, 모바일 비정상, Loading/Empty/Error 부자연스러움 → **High Priority Bug**, 즉시 수정.
 
-1. 새 기능을 개발하지 않는다
-2. **8단계 루프**를 질문 없이 반복한다:
-   - 문제 선택 → 구현 → 테스트 → Commit → Push → 문서 업데이트 → 재분석 → 다음 문제
-3. High Priority 작업이 남아있는 동안 계속한다
+### SaaS 품질 기준
 
-**우선순위:** Runtime Crash → 기능 오류 → 예외 처리 → 데이터 손상 방지 → UX → UI → 성능 → 리팩토링 → 유지보수성
+> "처음 보는 사용자가 돈 내고 쓸 SaaS처럼 느끼는가?"
 
-### UI/UX Sprint — Cursor 자율 규칙
+디자인·UX·산출물 품질도 QA 대상이다.
 
-ChatGPT(CTO)가 UI/UX Sprint를 시작하면 **사용자 승인 없이** QA Sprint와 동일한 8단계 루프를 따른다.
+### 자동 진행
 
-### 자율 작업 정책
+승인 질문 금지 ("계속할까요?", "다음 작업을 진행할까요?" 등). 스스로 다음 우선순위 선택.
 
-**금지 질문:** "다음 작업을 진행할까요?", "다음 Sprint를 시작할까요?", "이 항목을 수정할까요?", "계속 진행할까요?"
+**중단:** CTO 새 Task, 아키텍처 변경 필요, 외부 API·CEO 결정 필요 — 그 외 계속.
 
-**중단 조건 (4가지만):**
-
-1. ChatGPT(CTO) 새 Task 수신
-2. 치명적 설계 충돌
-3. 구현 방향을 결정할 수 없는 요구사항
-4. High Priority 작업 없음
-
-**Commit 후 보고 (4항목만):** 수정 내용, Commit 해시, Push 여부, 잔여 High Priority 이슈 개수. 다음 작업 제안 금지 — 스스로 시작.
-
-### 공통 원칙
-
-1. **연속 자율 수행** — 승인 질문 없이 8단계 루프 반복
-2. **UX 최우선** — 기능보다 사용자 경험을 우선한다
-3. **Task 기반 소통** — ChatGPT → Cursor 지시는 Task 형태
-4. **간결한 보고** — Commit 후 4항목만, 다음 작업은 자동 시작
-5. **테스트 필수** — 모든 변경은 테스트 후 Commit & Push
+**보고 (Commit 후 5항목):** 수정 내용, Commit 해시, Push 여부, High Priority Bug 수, Sprint 진행률(%). 다음 작업 제안 금지.
 
 ---
 

@@ -7,6 +7,20 @@ AI-DOS 저장소의 변경 이력이다.
 
 ---
 
+## [1.1.0] - 2026-06-29
+
+### Changed
+
+- v1.1 자율 개발 워크플로우 통합 (v1.0.2–v1.0.5 정책 일원화)
+- Feature → QA → UI/UX Sprint 자동 전환 사이클 확정
+- User Experience QA 필수 — 매 Commit마다 실행·화면 검증
+- SaaS 품질 기준 ("돈 내고 쓸 SaaS") 및 High Priority Bug 정의
+- 자동 진행 정책 — 승인 질문 금지, 5항목 보고 형식
+- 중단 조건 3가지로 정리 (CTO Task, 아키텍처 변경, 외부 결정)
+- README, WORKFLOW, DEVELOPMENT_RULES, VERSIONING, ai-dos.mdc, prompts, PROJECT_STATE 업데이트
+
+---
+
 ## [1.0.5] - 2026-06-29
 
 ### Changed

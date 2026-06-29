@@ -1,264 +1,189 @@
 # Workflow
 
-AI-DOS의 기본 개발 흐름이다. Cursor는 ChatGPT(CTO)의 관리 아래 자율적으로 개발과 QA를 수행한다.
+AI-DOS v1.1 개발 흐름. 모든 SaaS 프로젝트의 공통 운영체계다.
 
 ---
 
-## 역할 정의
+## 역할
 
 ### CEO (사용자)
 
-**하는 것:**
-
-- 제품 아이디어를 제시한다
-- 기능 요구사항을 정의한다
-- 우선순위를 결정한다
-
-**산출물:**
-
-- `VISION.md` 방향 확인 또는 수정 요청
-- `PROJECT_STATE.md`의 Current Goal 업데이트
-
-**하지 않는 것:**
-
-- Task 작성, 코드 리뷰, 구현
-
----
+- 기능 요구사항 정의
+- 우선순위 결정
 
 ### ChatGPT (CTO)
 
-**하는 것:**
-
-- 기능 요구사항을 Cursor **Task**로 분해한다
-- 프로젝트 전체를 리뷰한다
-- 버그, 기능 누락, UX/UI, 비즈니스 로직을 검토한다
-- SaaS 완성도를 높인다
-- **Release 여부를 판단·선언한다**
-- 언제든 새 Task를 추가할 수 있다
-
-**하지 않는 것:**
-
-- 코드 구현, 커밋·Push
-
-**도구:** `.ai/prompts/`
-
-| 단계 | 프롬프트 | 목적 |
-|------|----------|------|
-| 기능 시작 | `.ai/prompts/FEATURE_REQUEST.md` | 구현 Task 작성 |
-| 구현 후 | `.ai/prompts/REVIEW.md` | 종합 리뷰 |
-| QA | `.ai/prompts/QA.md` | 버그·누락 기능 점검 |
-| UX/UI 리뷰 | Task 직접 작성 | 사용성 검토 |
-| Release | `.ai/prompts/RELEASE.md` | 출시 판단 |
-
----
+- 기능을 Cursor **Task**로 분해
+- 코드 리뷰, QA, UX/UI 리뷰
+- SaaS 품질 향상, Release 판단
+- **구현하지 않음**
 
 ### Cursor (Senior Engineer)
 
-**하는 것:**
-
-- ChatGPT Task를 구현한다
-- 리팩토링하고 버그를 수정한다
-- 테스트한다
-- 문서를 업데이트한다
-- Commit 및 Push를 수행한다
-- ChatGPT Task가 없으면 **스스로** 프로젝트를 개선한다
-
-**규칙:** `.cursor/rules/ai-dos.mdc` 자동 적용
-
-**하지 않는 것:**
-
-- 승인·계속 여부 질문 ("다음 작업을 진행할까요?" 등)
-- Commit 후 다음 작업 제안 (스스로 시작)
+- 구현, 테스트, 버그 수정, 리팩토링
+- 문서 관리, Commit, Push
+- CTO 관리 아래 **자율적** QA·UI/UX 수행
 
 ---
 
-## 전체 흐름
+## 전체 사이클
 
 ```
-Feature Sprint (기능 개발)
-  ↓ 자동 전환
-QA Sprint (품질 향상)
-  ↓ 자동 전환
-UI/UX Sprint (사용성 개선)
+Feature Sprint
+  ↓ (자동)
+QA Sprint
+  ↓ (자동)
+UI/UX Sprint
   ↓
 Release (ChatGPT 선언)
 ```
 
+`PROJECT_STATE.md`의 **Sprint Mode**로 현재 단계를 기록한다.
+
 ---
 
-## Feature Sprint — 기능 개발
-
-CEO가 기능을 요청하면 ChatGPT가 Task를 작성하고 Cursor가 구현한다.  
-ChatGPT가 **Release를 선언**할 때까지 반복한다.
+## Feature Sprint
 
 ```
 기능 요청 (CEO)
   ↓
-ChatGPT — Task 작성
+ChatGPT — Task
   ↓
-Cursor — 구현
-  ↓
-Cursor — 자체 테스트
-  ↓
-Cursor — Commit → Push
+Cursor — 구현 → 자체 테스트 → Commit → Push
   ↓
 ChatGPT — 리뷰
   ↓
 Cursor — 수정
   ↓
-ChatGPT — QA
-  ↓
-Cursor — 수정
-  ↓
-ChatGPT — UX/UI 리뷰
-  ↓
-Cursor — 수정
-  ↓
 Release (ChatGPT 선언)
 ```
 
-기능 구현이 끝나면 **자동으로 QA Sprint**에 진입한다.
+Feature Sprint 종료 후 **자동으로 QA Sprint** 시작.
 
 ---
 
-## QA Sprint — 자율 품질 향상 (자동 진입)
+## QA Sprint
 
-ChatGPT(CTO)가 QA Sprint를 시작하면 **사용자 추가 승인 없이** Cursor가 계속 작업한다.  
-**새 기능을 개발하지 않는다.**
+- **새 기능 추가 금지**
+- 영향도가 가장 큰 문제부터 반복 수정
+- **사용자 승인 없이** 연속 작업
 
-**이슈 우선순위:**
+### 우선순위
 
-1. Runtime Crash → 2. 기능 오류 → 3. 예외 처리 → 4. 데이터 손상 방지 → 5. UX → 6. UI → 7. 성능 → 8. 리팩토링 → 9. 유지보수성
+1. Runtime Crash
+2. 기능 오류
+3. 예외 처리
+4. 데이터 무결성
+5. UX 개선
+6. UI 개선
+7. 성능 개선
+8. 리팩토링
+9. 유지보수성
 
-**8단계 루프 (질문 없이 반복):**
+### 작업 루프
 
-1. 가장 영향도가 높은 문제를 **스스로** 선택
-2. 구현
-3. 테스트
-4. Commit
-5. Push
-6. `PROJECT_STATE.md`, `CHANGELOG.md` 업데이트
-7. 프로젝트 재분석
-8. 다음 우선순위 문제 선택 → 1번으로
+```
+문제 선택 → 구현 → 테스트(실행·화면 확인) → Commit → Push
+→ PROJECT_STATE · CHANGELOG 업데이트 → 재분석 → 반복
+```
 
-**종료 조건 (모두 충족 시 보고):** Runtime Crash 없음, High Priority 버그 없음, 주요 흐름 정상, UX 일관성, Error Handling, Loading/Empty/Error State 완료
+### User Experience QA (필수)
 
-종료 후 **자동으로 UI/UX Sprint** 진입. ChatGPT(CTO) Task 추가 시 우선 처리 후 루프 재개.
+매 Commit마다 앱을 **실행**하고 주요 화면을 확인한다. 코드 리뷰만으로 통과시키지 않는다.
+
+| 검사 항목 | High Priority Bug |
+|-----------|-------------------|
+| HTML/JSON/Markdown/Debug/Stack Trace 노출 | ✓ |
+| Placeholder, 테스트 데이터, TODO, 개발자 용어 노출 | ✓ |
+| 버튼·입력 비정상, 화면·레이아웃 깨짐 | ✓ |
+| 글자 잘림, 여백 이상, 색상 불일치, 모바일 비정상 | ✓ |
+| Loading / Empty / Error 화면 부자연스러움 | ✓ |
+
+### SaaS 품질 기준
+
+> "처음 보는 사용자가 실제 돈을 내고 쓸 SaaS처럼 느끼는가?"
+
+아니면 개선한다. 디자인·UX·산출물 품질도 QA 대상이다.
+
+### QA Sprint 종료 조건
+
+- Runtime Crash 없음
+- High Priority Bug 없음
+- 주요 사용자 흐름 정상
+- Error Handling, Loading/Empty/Error State 완료
+
+종료 후 **자동으로 UI/UX Sprint** 시작.
 
 ---
 
-## UI/UX Sprint — 자율 사용성 개선 (자동 진입)
+## UI/UX Sprint
 
-ChatGPT(CTO)가 UI/UX Sprint를 시작하면 **사용자 추가 승인 없이** Cursor가 계속 작업한다.  
-**기능을 추가하지 않는다.** QA Sprint와 **동일한 8단계 루프**를 따른다.
+- **새 기능 추가 금지**
+- QA Sprint와 동일 작업 루프
+- 목표: **판매 가능한 SaaS** 수준 (개발용 툴 수준 탈피)
 
-**개선 항목:** 사용자 흐름, 버튼 위치, 정보 계층, 여백, 가독성, 반응형, 접근성, 로딩·빈·에러 화면, 피드백, 사용성
+### 개선 항목
 
-**원칙:** 실제 사용자 경험이 좋아지는 경우에만 적용한다.
+사용자 흐름, 정보 구조, 버튼 위치, 여백, 타이포그래피, 디자인 일관성, 컬러 시스템, 반응형, 접근성, Loading/Empty/Error UX, **핵심 산출물 디자인 품질**
+
+실제 사용자 경험이 개선될 때만 적용한다.
 
 ---
 
-## 자율 작업 정책
-
-QA Sprint·UI/UX Sprint 중 Cursor는 **승인 질문 없이** 8단계 루프를 반복한다.
+## 자동 진행 정책
 
 ### 금지 질문
 
+- "계속할까요?"
 - "다음 작업을 진행할까요?"
-- "다음 Sprint를 시작할까요?"
+- "다음 Sprint를 진행할까요?"
 - "이 항목을 수정할까요?"
-- "계속 진행할까요?"
 
-대신 스스로 다음 우선순위를 선택하여 계속 진행한다.
+### 중단 조건
 
-### 중단 조건 (이 경우에만 멈춤)
+1. ChatGPT(CTO) 새 Task 전달
+2. 프로젝트 전체 아키텍처 변경 필요
+3. 외부 API 또는 사용자(CEO) 결정 필요
 
-1. ChatGPT(CTO)가 새로운 Task를 보낸 경우
-2. 치명적인 설계 충돌이 발생한 경우
-3. 구현 방향을 결정할 수 없는 기능 요구사항이 있는 경우
-4. 더 이상 개선할 High Priority 작업이 없는 경우
+그 외에는 **계속 개선**한다. CTO Task 처리 후 자율 루프 재개.
 
-그 외에는 작업을 계속 진행한다.
+### Commit 후 보고 (5항목만)
 
-### Commit 후 보고 형식
+| # | 항목 |
+|---|------|
+| 1 | 수정 내용 |
+| 2 | Commit 해시 |
+| 3 | Push 완료 여부 |
+| 4 | 남아있는 High Priority Bug 개수 |
+| 5 | 현재 Sprint 진행률(%) |
 
-각 Commit 후 **아래 4항목만** 보고한다.
-
-| 항목 | 내용 |
-|------|------|
-| 수정 내용 | 이번에 수정한 내용 |
-| Commit | Commit 해시 |
-| Push | Push 여부 |
-| 잔여 이슈 | 남아있는 High Priority 이슈 개수 |
-
-다음 작업 제안은 하지 않는다. 다음 작업은 **스스로 시작**한다.
+다음 작업 제안·승인 요청 금지. **스스로 다음 작업 시작.**
 
 ---
 
 ## 작업 종료 조건
 
-Cursor는 아래가 **모두** 충족될 때만 작업을 종료한다.
-
-- [ ] 기능 구현 완료
-- [ ] QA Sprint 완료
-- [ ] UI/UX Sprint 완료
-- [ ] 문서 최신화 완료
-- [ ] Commit 완료
-- [ ] Push 완료
-
-ChatGPT의 새 Task가 없어도 종료 조건 충족 전까지 **스스로 프로젝트를 개선하며** 작업을 계속한다.
+- 기능 구현 완료
+- QA Sprint 완료
+- UI/UX Sprint 완료
+- Runtime Crash·High Priority Bug 없음
+- HTML/JSON/Debug 노출 없음
+- UX·UI 일관성, Loading/Empty/Error UX 완료
+- 문서·Commit·Push 완료
 
 ---
 
-## Sprint Mode
+## ChatGPT(CTO) 프롬프트
 
-`PROJECT_STATE.md`의 **Sprint Mode**로 현재 단계를 기록한다.
-
-| Sprint Mode | 진입 | 기능 추가 |
-|-------------|------|-----------|
-| Feature Sprint | CEO 기능 요청 | ✓ |
-| QA Sprint | 기능 구현 완료 후 자동 | ✗ |
-| UI/UX Sprint | QA Sprint 종료 후 자동 | ✗ |
-
----
-
-## GitHub — 버전 관리
-
-Cursor가 커밋·Push를 담당한다.
-
-**커밋 규칙:**
-
-```
-<type>: <description>
-
-type: feat | fix | docs | refactor | chore
-```
+| 용도 | 파일 |
+|------|------|
+| 기능 Task | `.ai/prompts/FEATURE_REQUEST.md` |
+| 리뷰 | `.ai/prompts/REVIEW.md` |
+| QA | `.ai/prompts/QA.md` |
+| Release | `.ai/prompts/RELEASE.md` |
 
 ---
 
-## 역할별 요약
+## GitHub
 
-| 역할 | 도구 | 핵심 책임 | 구현 |
-|------|------|-----------|------|
-| CEO | — | 아이디어, 요구사항, 우선순위 | ✗ |
-| CTO | ChatGPT | Task, 리뷰, QA, Release | ✗ |
-| Engineer | Cursor | 구현, 테스트, 문서, Push, 자율 QA·UI/UX | ✓ |
-
----
-
-## 예외 처리
-
-### 긴급 버그 (Hotfix)
-
-```
-버그 발견 → .ai/prompts/QA.md로 분류 → Critical이면 fix/* 브랜치
-→ Cursor 수정·테스트·Push → ChatGPT 간소 리뷰 → merge
-```
-
-### ChatGPT Task 추가
-
-CTO가 Task를 추가하면 Cursor는 우선 처리 후 현재 Sprint Mode의 자율 루프를 재개한다.
-
-### 문서만 변경
-
-코드 변경 없이 문서만 수정할 때도 Cursor가 `CHANGELOG.md`에 기록하고 커밋한다.
+Cursor가 Commit·Push 담당. 형식: `feat | fix | docs | refactor | chore`
