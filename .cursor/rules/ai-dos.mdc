@@ -1,0 +1,47 @@
+---
+description: AI-DOS 공통 개발 규칙 — 모든 작업에 적용
+globs:
+alwaysApply: true
+---
+
+# AI-DOS Rules
+
+이 프로젝트는 AI-DOS(AI Development Operating System)를 따른다.
+
+## 작업 시작 전
+
+1. `README.md`를 읽어 프로젝트 구조와 실행 방법을 파악한다.
+2. `VISION.md`를 읽어 제품 방향과 Non-goals를 확인한다.
+3. `PROJECT_STATE.md`를 읽어 현재 목표와 진행 중인 작업을 확인한다.
+
+## 작업 완료 후
+
+4. `PROJECT_STATE.md`를 최신 상태로 업데이트한다.
+   - Completed, In Progress, Next Tasks, Known Issues 반영
+5. `CHANGELOG.md`를 업데이트한다.
+   - Added / Changed / Fixed / Removed 중 해당 항목 기록
+6. 새로운 기능이 추가되면 `README.md`를 업데이트한다.
+
+## 개발 원칙
+
+7. 문서는 항상 코드와 동일한 상태를 유지한다. 코드 변경 시 같은 작업에서 문서도 변경한다.
+8. MVP를 우선한다. Non-goals에 해당하는 기능은 구현하지 않는다.
+9. 기능보다 사용자 경험을 우선한다. 에러·로딩·빈 상태를 처리한다.
+10. 복잡한 설계보다 유지보수를 우선한다. 단순하고 읽기 쉬운 코드를 쓴다.
+11. 불필요한 라이브러리는 추가하지 않는다. 추가 시 README에 이유를 기록한다.
+
+## 작업 마무리
+
+12. 구현이 끝나면 변경 내용을 요약한다.
+    - 무엇을 변경했는지
+    - 어떤 문서를 업데이트했는지
+    - 남은 작업이 있는지
+
+## 프롬프트
+
+작업 유형에 맞는 프롬프트를 ChatGPT(CTO)에 전달한다.
+
+- 기능 개발: `prompts/FEATURE_REQUEST.md`
+- 코드 리뷰: `prompts/REVIEW.md`
+- 버그 분류: `prompts/QA.md`
+- 출시 판단: `prompts/RELEASE.md`
