@@ -7,6 +7,19 @@ AI-DOS 저장소의 변경 이력이다.
 
 ---
 
+## [1.0.4] - 2026-06-29
+
+### Changed
+
+- Cursor 자율 개발 워크플로우 통합 (CTO 관리 아래 자율 개발·QA 수행)
+- 기능 개발 사이클 명확화 (구현 → 테스트 → Commit & Push → CTO 리뷰)
+- QA Sprint 자동 진입, 우선순위 9단계, 종료 조건 6항목
+- UI/UX Sprint 신규 도입 (QA Sprint 종료 후 자동 진입)
+- 작업 종료 조건 6항목 정의, 중단 질문 금지
+- README, WORKFLOW, DEVELOPMENT_RULES, ai-dos.mdc, PROJECT_STATE 업데이트
+
+---
+
 ## [1.0.3] - 2026-06-29
 
 ### Changed

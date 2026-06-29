@@ -29,7 +29,7 @@
 
 ## Current Sprint
 
-**Sprint Mode:** [Feature Sprint | QA Sprint]
+**Sprint Mode:** [Feature Sprint | QA Sprint | UI/UX Sprint]
 
 **Sprint:** [스프린트 이름 또는 기간, 예: Sprint 3 / 2026-06-23 ~ 2026-07-06]
 
@@ -38,7 +38,8 @@
 | Sprint Mode | Current Goal 예시 |
 |-------------|-------------------|
 | Feature Sprint | "이메일 로그인 기능 출시" |
-| QA Sprint | "Runtime 오류 0건, UX 일관성 확보" |
+| QA Sprint | "Runtime Crash 0건, High Priority 버그 0건" |
+| UI/UX Sprint | "주요 화면 로딩·에러 상태·사용성 개선" |
 
 ---
 

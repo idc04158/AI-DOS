@@ -22,6 +22,17 @@ v<MAJOR>.<MINOR>.<PATCH>
 
 ## 버전 히스토리
 
+### v1.0.4 (2026-06-29)
+
+Cursor 자율 개발 워크플로우 및 UI/UX Sprint 도입.
+
+**변경 내용:**
+
+- Feature → QA (자동) → UI/UX (자동) → Release 전체 사이클
+- QA Sprint 우선순위 9단계, UI/UX Sprint 개선 항목 정의
+- 작업 종료 조건 6항목, 중단 질문 금지
+- README, WORKFLOW, DEVELOPMENT_RULES, ai-dos.mdc 업데이트
+
 ### v1.0.3 (2026-06-29)
 
 Feature/QA Sprint 모드 및 Cursor 자율 QA Sprint 워크플로우.
