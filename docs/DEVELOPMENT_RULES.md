@@ -73,7 +73,7 @@
 
 | 이벤트 | 업데이트 항목 |
 |--------|---------------|
-| 스프린트 시작 | Current Sprint, Current Goal |
+| 스프린트 시작 | Current Sprint, **Sprint Mode**, Current Goal |
 | 작업 시작 | In Progress |
 | 작업 완료 | Completed, In Progress 제거 |
 | 버그 발견 | Known Issues |
@@ -175,7 +175,10 @@ Cursor, ChatGPT 등 AI 도구 사용 시 추가 규칙이다.
 ### Cursor (Engineer) 규칙
 
 - ChatGPT Task만 구현한다 (Task 없는 대규모 변경 금지)
-- 작업 전 `VISION.md`와 `PROJECT_STATE.md`를 읽는다
+- 작업 전 `VISION.md`와 `PROJECT_STATE.md`를 읽고 **Sprint Mode**를 확인한다
+- **QA Sprint:** 프로젝트를 분석하고 우선순위가 가장 높은 문제부터 자율적으로 수정한다
+- **QA Sprint:** 새 기능을 추가하지 않는다. CTO Task가 있으면 우선 처리 후 자율 루프 재개
+- **QA Sprint:** 종료 조건 충족 전까지 자동 반복. 중단 질문 금지
 - 작업 후 문서를 업데이트하고 커밋·Push한다
 - AI가 생성한 코드에도 동일한 품질 기준을 적용한다
 
@@ -188,7 +191,56 @@ Cursor, ChatGPT 등 AI 도구 사용 시 추가 규칙이다.
 
 ## 11. 개발 프로세스 원칙
 
-기능 하나를 완성할 때 따르는 원칙이다.
+### 스프린트 모드
+
+| 모드 | 목적 | 기능 추가 | 주도 |
+|------|------|-----------|------|
+| Feature Sprint | 새 기능 개발 | ✓ | ChatGPT Task → Cursor 구현 |
+| QA Sprint | 자율 품질 향상 | ✗ | Cursor 자율 분석 (CTO Task 병행) |
+
+- CEO가 `PROJECT_STATE.md`의 Sprint Mode를 결정한다
+- 한 스프린트에 하나의 모드만 적용한다
+- QA Sprint 중 새 기능을 추가하지 않는다
+
+### QA Sprint — Cursor 자율 작업 규칙
+
+QA Sprint가 시작되면 Cursor는 다음을 따른다.
+
+1. 프로젝트 전체를 분석한다
+2. 아래 우선순위에서 가장 영향도가 큰 문제 **하나**를 선택한다
+3. 수정 → 자체 테스트 → `PROJECT_STATE.md` · `CHANGELOG.md` 업데이트 → Commit & Push
+4. 종료 조건 충족까지 **자동으로** 반복한다
+5. "다음 Sprint를 진행할까요?" 등 중단 질문을 하지 않는다
+
+**이슈 우선순위:**
+
+```
+1. Runtime Crash
+2. 기능 동작 오류
+3. 데이터 손상 및 예외 처리
+4. UX 흐름 개선
+5. UI 일관성 및 사용성 개선
+6. 성능 개선
+7. 리팩토링
+8. 유지보수성 향상
+```
+
+**종료 조건 (모두 충족 시 보고):**
+
+- Runtime 오류가 모두 제거됨
+- 치명적인 기능 오류가 없음
+- UX가 일관된 상태
+- 더 이상 High Priority 이슈가 없음
+
+### QA Sprint — ChatGPT (CTO) 규칙
+
+- 언제든 새 Task를 추가할 수 있다
+- Cursor는 Task 처리 후 자율 QA 루프를 재개한다
+- 새 Task가 없으면 Cursor가 QA Sprint를 계속 진행한다
+
+### 공통 원칙
+
+기능 하나를 완성하거나 품질 목표에 도달할 때 따르는 원칙이다.
 
 1. **빠른 검증 우선** — 개발 중에는 완벽한 코드보다 MVP 검증을 우선한다
 2. **UX 최우선** — 기능보다 사용자 경험을 우선한다

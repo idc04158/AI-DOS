@@ -22,6 +22,18 @@ v<MAJOR>.<MINOR>.<PATCH>
 
 ## 버전 히스토리
 
+### v1.0.3 (2026-06-29)
+
+Feature/QA Sprint 모드 및 Cursor 자율 QA Sprint 워크플로우.
+
+**변경 내용:**
+
+- Feature Sprint / QA Sprint 개발 모드 도입
+- QA Sprint: Cursor가 프로젝트를 분석하고 우선순위 기반으로 자율 수정
+- 이슈 우선순위 8단계, 문제당 Commit & Push 루프
+- 종료 조건 충족까지 자동 진행, CTO Task 병행 가능
+- README, WORKFLOW, DEVELOPMENT_RULES, ai-dos.mdc 업데이트
+
 ### v1.0.2 (2026-06-29)
 
 CEO, ChatGPT(CTO), Cursor(Senior Engineer) 역할 및 반복 개발 프로세스 명확화.

@@ -29,9 +29,16 @@
 
 ## Current Sprint
 
+**Sprint Mode:** [Feature Sprint | QA Sprint]
+
 **Sprint:** [스프린트 이름 또는 기간, 예: Sprint 3 / 2026-06-23 ~ 2026-07-06]
 
 **Current Goal:** [이번 스프린트에서 반드시 달성할 목표 — 한 문장]
+
+| Sprint Mode | Current Goal 예시 |
+|-------------|-------------------|
+| Feature Sprint | "이메일 로그인 기능 출시" |
+| QA Sprint | "Runtime 오류 0건, UX 일관성 확보" |
 
 ---
 
