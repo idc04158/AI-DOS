@@ -48,8 +48,10 @@ cp .env.example .env
 
 ```
 [project-name]/
-├── [directory]/     # [설명]
-├── [directory]/     # [설명]
+├── .ai/
+│   └── prompts/         # AI-DOS 운영 프롬프트 (CTO 리뷰·출시 등)
+├── prompts/             # 프로젝트 AI Prompt (선택)
+├── [directory]/         # [설명]
 ├── README.md
 ├── VISION.md
 ├── PROJECT_STATE.md
@@ -77,6 +79,8 @@ cp .env.example .env
 2. `PROJECT_STATE.md` — 현재 작업 상태 확인
 3. 구현
 4. `CHANGELOG.md` 업데이트
+
+CTO(ChatGPT) 작업 시 `.ai/prompts/`의 프롬프트를 사용한다.
 
 ### Commands
 

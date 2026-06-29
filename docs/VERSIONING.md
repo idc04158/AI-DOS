@@ -22,6 +22,40 @@ v<MAJOR>.<MINOR>.<PATCH>
 
 ## 버전 히스토리
 
+### v1.0.2 (2026-06-29)
+
+CEO, ChatGPT(CTO), Cursor(Senior Engineer) 역할 및 반복 개발 프로세스 명확화.
+
+**변경 내용:**
+
+- 역할 정의: CEO(의사결정), CTO(Task·QA·리뷰), Engineer(구현·커밋·Push)
+- 개발 프로세스: 기능 요청 → Task → 구현 → 리뷰 → QA → UX → Release 반복
+- ChatGPT는 Task만 생성, Cursor는 구현·문서·커밋·Push 담당
+- README, WORKFLOW, DEVELOPMENT_RULES, ai-dos.mdc 업데이트
+
+### v1.0.1 (2026-06-29)
+
+프로젝트 AI Prompt와의 경로 충돌 방지.
+
+**변경 내용:**
+
+- `prompts/` → `.ai/prompts/`로 이동
+- AI-DOS 관련 파일을 `.ai/` 네임스페이스로 분리
+- 모든 문서 경로 참조 업데이트
+
+**마이그레이션 (v1.0.0 → v1.0.1):**
+
+```bash
+# 기존 prompts/ 제거 후 .ai/ 복사
+rm -rf prompts/
+cp -r AI-DOS/.ai my-project/
+```
+
+```powershell
+Remove-Item my-project\prompts -Recurse -Force -ErrorAction SilentlyContinue
+Copy-Item AI-DOS\.ai my-project\.ai -Recurse -Force
+```
+
 ### v1.0.0 (2026-06-29)
 
 최초 안정 버전.
@@ -30,7 +64,7 @@ v<MAJOR>.<MINOR>.<PATCH>
 
 - README, WORKFLOW, DEVELOPMENT_RULES, VERSIONING
 - 템플릿 4종 (PROJECT_STATE, CHANGELOG, VISION, README_TEMPLATE)
-- 프롬프트 4종 (REVIEW, QA, RELEASE, FEATURE_REQUEST)
+- 프롬프트 4종 (`.ai/prompts/` — v1.0.1부터)
 - Cursor 규칙 (ai-dos.mdc)
 
 ---
@@ -92,7 +126,7 @@ v2.0.0  — 주요 변경 (Breaking change)
 
 - 기능 추가가 빈번하므로 MINOR를 자유롭게 올린다
 - Breaking change가 있어도 v0.x 내에서는 MAJOR를 올리지 않는다
-- v1.0.0은 CEO + CTO가 `prompts/RELEASE.md`로 판단한다
+- v1.0.0은 CEO + CTO가 `.ai/prompts/RELEASE.md`로 판단한다
 
 ---
 

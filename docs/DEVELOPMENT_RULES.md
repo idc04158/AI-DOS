@@ -156,10 +156,45 @@ docs: update environment variable list
 
 Cursor, ChatGPT 등 AI 도구 사용 시 추가 규칙이다.
 
-- AI에게 작업을 맡기기 전 `VISION.md`와 `PROJECT_STATE.md`를 컨텍스트로 제공한다
-- AI 출력물은 반드시 사람이 검토한다
+### 역할 분리
+
+| 도구 | 역할 | 출력물 |
+|------|------|--------|
+| ChatGPT | CTO | Cursor Task (구현 안 함) |
+| Cursor | Senior Engineer | 코드, 문서, 커밋·Push |
+
+### ChatGPT (CTO) 규칙
+
+- 모든 출력은 Cursor가 바로 실행할 수 있는 **Task 형태**로 작성한다
+- 제안만 하고 끝내지 않는다 — 구조 변경, 리팩토링, 폴더 변경도 Task로 생성한다
+- 기능 개발 중 적극적으로 개선사항을 찾고 Task로 만든다
+- QA와 UX 개선을 기능 완성까지 반복한다
+- "충분히 좋다"는 수준에 도달하면 Release를 권장한다
+- `VISION.md`와 `PROJECT_STATE.md`를 컨텍스트로 활용한다
+
+### Cursor (Engineer) 규칙
+
+- ChatGPT Task만 구현한다 (Task 없는 대규모 변경 금지)
+- 작업 전 `VISION.md`와 `PROJECT_STATE.md`를 읽는다
+- 작업 후 문서를 업데이트하고 커밋·Push한다
 - AI가 생성한 코드에도 동일한 품질 기준을 적용한다
-- AI 프롬프트 자체도 리뷰 대상이다 (`prompts/REVIEW.md`의 AI Prompt Quality)
+
+### 공통
+
+- AI 프롬프트 자체도 리뷰 대상이다 (`.ai/prompts/REVIEW.md`의 AI Prompt Quality)
+- CEO(사용자)가 최종 의사결정한다
+
+---
+
+## 11. 개발 프로세스 원칙
+
+기능 하나를 완성할 때 따르는 원칙이다.
+
+1. **빠른 검증 우선** — 개발 중에는 완벽한 코드보다 MVP 검증을 우선한다
+2. **UX 최우선** — 기능보다 사용자 경험을 우선한다
+3. **반복 QA·UX** — Release 전까지 QA와 UX 개선을 반복한다
+4. **Task 기반 소통** — ChatGPT ↔ Cursor 간 모든 지시는 Task 형태다
+5. **충분히 좋으면 출시** — 과도한 완벽주의보다 적시 Release를 권장한다
 
 ---
 

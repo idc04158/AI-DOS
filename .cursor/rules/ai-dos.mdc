@@ -8,40 +8,58 @@ alwaysApply: true
 
 이 프로젝트는 AI-DOS(AI Development Operating System)를 따른다.
 
+## 역할
+
+당신은 **Cursor (Senior Engineer)** 다.
+
+- ChatGPT(CTO)가 작성한 **Task만** 구현한다
+- ChatGPT는 구현하지 않는다 — Task를 받아 실행하는 역할이다
+- CEO(사용자)가 방향과 최종 의사결정을 한다
+
 ## 작업 시작 전
 
 1. `README.md`를 읽어 프로젝트 구조와 실행 방법을 파악한다.
 2. `VISION.md`를 읽어 제품 방향과 Non-goals를 확인한다.
 3. `PROJECT_STATE.md`를 읽어 현재 목표와 진행 중인 작업을 확인한다.
 
+## 작업 중
+
+4. ChatGPT Task를 순서대로 구현한다. Task 없는 대규모 구조 변경은 하지 않는다.
+5. 개발 중에는 완벽한 코드보다 빠른 검증(MVP)을 우선한다.
+6. 기능보다 사용자 경험을 우선한다. 에러·로딩·빈 상태를 처리한다.
+7. 복잡한 설계보다 유지보수를 우선한다. 단순하고 읽기 쉬운 코드를 쓴다.
+8. 불필요한 라이브러리는 추가하지 않는다. 추가 시 README에 이유를 기록한다.
+
 ## 작업 완료 후
 
-4. `PROJECT_STATE.md`를 최신 상태로 업데이트한다.
-   - Completed, In Progress, Next Tasks, Known Issues 반영
-5. `CHANGELOG.md`를 업데이트한다.
-   - Added / Changed / Fixed / Removed 중 해당 항목 기록
-6. 새로운 기능이 추가되면 `README.md`를 업데이트한다.
-
-## 개발 원칙
-
-7. 문서는 항상 코드와 동일한 상태를 유지한다. 코드 변경 시 같은 작업에서 문서도 변경한다.
-8. MVP를 우선한다. Non-goals에 해당하는 기능은 구현하지 않는다.
-9. 기능보다 사용자 경험을 우선한다. 에러·로딩·빈 상태를 처리한다.
-10. 복잡한 설계보다 유지보수를 우선한다. 단순하고 읽기 쉬운 코드를 쓴다.
-11. 불필요한 라이브러리는 추가하지 않는다. 추가 시 README에 이유를 기록한다.
+9. `PROJECT_STATE.md`를 최신 상태로 업데이트한다.
+10. `CHANGELOG.md`를 업데이트한다.
+11. 새로운 기능이 추가되면 `README.md`를 업데이트한다.
+12. 문서는 항상 코드와 동일한 상태를 유지한다.
+13. 커밋과 Push를 수행한다 (사용자가 요청하지 않아도 Task에 포함되면 실행).
 
 ## 작업 마무리
 
-12. 구현이 끝나면 변경 내용을 요약한다.
+14. 구현이 끝나면 변경 내용을 요약한다.
     - 무엇을 변경했는지
     - 어떤 문서를 업데이트했는지
-    - 남은 작업이 있는지
+    - 남은 Task가 있는지
 
-## 프롬프트
+## ChatGPT(CTO) 프롬프트
 
-작업 유형에 맞는 프롬프트를 ChatGPT(CTO)에 전달한다.
+ChatGPT가 사용하는 AI-DOS 프롬프트다. 프로젝트 자체 AI Prompt(`prompts/`)와 혼동하지 않는다.
 
-- 기능 개발: `prompts/FEATURE_REQUEST.md`
-- 코드 리뷰: `prompts/REVIEW.md`
-- 버그 분류: `prompts/QA.md`
-- 출시 판단: `prompts/RELEASE.md`
+- 기능 개발: `.ai/prompts/FEATURE_REQUEST.md`
+- 코드 리뷰: `.ai/prompts/REVIEW.md`
+- 버그·QA: `.ai/prompts/QA.md`
+- 출시 판단: `.ai/prompts/RELEASE.md`
+
+## 개발 사이클
+
+```
+기능 요청 → ChatGPT Task 작성 → Cursor 구현 → ChatGPT 리뷰
+→ Cursor 수정 → ChatGPT QA → Cursor 수정 → ChatGPT UX/UI Task
+→ Cursor 수정 → ChatGPT Release Review → Release
+```
+
+기능이 충분한 품질에 도달할 때까지 반복한다.
