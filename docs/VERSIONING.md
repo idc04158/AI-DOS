@@ -22,6 +22,17 @@ v<MAJOR>.<MINOR>.<PATCH>
 
 ## 버전 히스토리
 
+### v1.0.5 (2026-06-29)
+
+연속 자율 작업 정책 — 승인 질문 제거, 8단계 루프, 보고 형식 표준화.
+
+**변경 내용:**
+
+- QA·UI/UX Sprint 중 사용자 승인 없이 연속 작업
+- 금지 질문 4종, 중단 조건 4가지 명시
+- Commit 후 보고 4항목만 (다음 작업 제안 금지)
+- README, WORKFLOW, DEVELOPMENT_RULES, ai-dos.mdc 업데이트
+
 ### v1.0.4 (2026-06-29)
 
 Cursor 자율 개발 워크플로우 및 UI/UX Sprint 도입.

@@ -7,6 +7,17 @@ AI-DOS 저장소의 변경 이력이다.
 
 ---
 
+## [1.0.5] - 2026-06-29
+
+### Changed
+
+- 연속 자율 작업 정책 도입: QA·UI/UX Sprint 중 사용자 승인 질문 제거
+- 8단계 자율 루프 정의 (선택 → 구현 → 테스트 → Commit → Push → 문서 → 재분석 → 반복)
+- 중단 조건 4가지, Commit 후 보고 4항목으로 제한
+- README, WORKFLOW, DEVELOPMENT_RULES, ai-dos.mdc 업데이트
+
+---
+
 ## [1.0.4] - 2026-06-29
 
 ### Changed

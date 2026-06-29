@@ -174,12 +174,11 @@ Cursor, ChatGPT 등 AI 도구 사용 시 추가 규칙이다.
 ### Cursor (Engineer) 규칙
 
 - ChatGPT(CTO) 관리 아래 **자율적으로** 개발·QA·UI/UX를 수행한다
-- Feature Sprint: Task 구현 → 자체 테스트 → Commit & Push → CTO 리뷰 사이클
-- QA Sprint: 우선순위 기반 자율 수정 (새 기능 금지)
-- UI/UX Sprint: 사용성 개선만 (새 기능 금지)
-- ChatGPT Task가 없어도 종료 조건 충족 전까지 스스로 개선한다
-- **"다음 작업을 진행할까요?" / "계속할까요?" 질문 금지**
-- 작업 후 문서 업데이트, Commit & Push
+- Feature Sprint: Task 구현 → 테스트 → Commit & Push → CTO 리뷰 사이클
+- QA·UI/UX Sprint: **8단계 자율 루프**, 사용자 승인 질문 없이 연속 작업
+- ChatGPT Task 수신 시 우선 처리 후 자율 루프 재개
+- Commit 후 **4항목만** 보고 (수정 내용, 해시, Push 여부, 잔여 High Priority 이슈)
+- 다음 작업 제안 금지 — **스스로 시작**
 
 ### 공통
 
@@ -214,39 +213,38 @@ Feature Sprint → QA Sprint (자동) → UI/UX Sprint (자동) → Release
 
 ### QA Sprint — Cursor 자율 규칙
 
+ChatGPT(CTO)가 QA Sprint를 시작하면 **사용자 승인 없이** Cursor가 계속 작업한다.
+
 1. 새 기능을 개발하지 않는다
-2. 프로젝트를 분석하여 우선순위가 가장 높은 문제를 선택한다
-3. 수정 → 테스트 → Commit & Push → 문서 업데이트 → 반복
-4. High Priority 문제가 남아있는 동안 계속한다
-5. 중단 질문 금지
+2. **8단계 루프**를 질문 없이 반복한다:
+   - 문제 선택 → 구현 → 테스트 → Commit → Push → 문서 업데이트 → 재분석 → 다음 문제
+3. High Priority 작업이 남아있는 동안 계속한다
 
 **우선순위:** Runtime Crash → 기능 오류 → 예외 처리 → 데이터 손상 방지 → UX → UI → 성능 → 리팩토링 → 유지보수성
 
-**종료 조건:** Runtime Crash 없음, High Priority 버그 없음, 주요 흐름 정상, UX 일관성, Error Handling, Loading/Empty/Error State 완료
-
 ### UI/UX Sprint — Cursor 자율 규칙
 
-1. 기능을 추가하지 않는다
-2. 사용자 흐름·버튼·여백·가독성·반응형·접근성·로딩·빈·에러 화면·피드백만 개선
-3. 실제 사용자 경험이 좋아지는 경우에만 적용
-4. 테스트 후 Commit & Push, 개선 항목이 없을 때까지 반복
-5. 중단 질문 금지
+ChatGPT(CTO)가 UI/UX Sprint를 시작하면 **사용자 승인 없이** QA Sprint와 동일한 8단계 루프를 따른다.
 
-### 작업 종료 조건
+### 자율 작업 정책
 
-- 기능 구현 완료
-- QA Sprint 완료
-- UI/UX Sprint 완료
-- 문서·Commit·Push 완료
+**금지 질문:** "다음 작업을 진행할까요?", "다음 Sprint를 시작할까요?", "이 항목을 수정할까요?", "계속 진행할까요?"
 
-모두 충족 전까지 ChatGPT Task가 없어도 스스로 개선을 계속한다.
+**중단 조건 (4가지만):**
+
+1. ChatGPT(CTO) 새 Task 수신
+2. 치명적 설계 충돌
+3. 구현 방향을 결정할 수 없는 요구사항
+4. High Priority 작업 없음
+
+**Commit 후 보고 (4항목만):** 수정 내용, Commit 해시, Push 여부, 잔여 High Priority 이슈 개수. 다음 작업 제안 금지 — 스스로 시작.
 
 ### 공통 원칙
 
-1. **자율 수행** — Cursor는 CTO 관리 아래 스스로 개발·QA·UI/UX를 진행한다
+1. **연속 자율 수행** — 승인 질문 없이 8단계 루프 반복
 2. **UX 최우선** — 기능보다 사용자 경험을 우선한다
 3. **Task 기반 소통** — ChatGPT → Cursor 지시는 Task 형태
-4. **중단 금지** — 종료 조건 충족 전까지 "계속할까요?" 질문 없이 진행
+4. **간결한 보고** — Commit 후 4항목만, 다음 작업은 자동 시작
 5. **테스트 필수** — 모든 변경은 테스트 후 Commit & Push
 
 ---
